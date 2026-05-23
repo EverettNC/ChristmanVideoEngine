@@ -1,0 +1,92 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+.genkit/*
+.env*
+.claude
+
+# firebase
+firebase-debug.log
+firestore-debug.log
+venv/bin
+venv/
+*.pyc
+__pycache__/
+
+# Memory stores — generated at runtime, never committed
+src/ai/memory/memory_store.json
+src/ai/brockston_memory/semantic_memory.json
+
+# HIPAA secure data
+hipaa_secure/
+*.log
+secret.key
+*.key
+
+# ── SECURITY — Cardinal Rule 12 ──────────────────────────────────
+secret.key
+*.key
+*.fernet
+*_secret*
+*_private*
+*.p12
+*.pfx
+
+# ── Python runtime artifacts ──────────────────────────────────────
+*.pyo
+.pytest_cache/
+.mypy_cache/
+dist/
+*.egg-info/
+.venv/
+
+# ── BROCKSTON runtime data ────────────────────────────────────────
+src/ai/memory/
+src/ai/brockston_memory/
+src/ai/python_core/brockston_knowledge/
+learning_engine.log
+ .idx/
+.mcp.json
+.vscode/
+venv/
+node_modules/
+venv311/lib/*
+venv311/*
+*venv311*
+venv311/lib/python3.11/*
