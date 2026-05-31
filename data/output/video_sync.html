@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AlphaVox: Build Comparison</title>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; background: #121212; color: #fff; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; margin: 0; }
+        h1 { margin-bottom: 30px; font-weight: 500; letter-spacing: 0.5px; }
+        .video-wrapper { display: flex; gap: 20px; width: 100%; max-width: 1400px; margin-bottom: 30px; }
+        .video-container { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        video { width: 100%; background: #000; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); aspect-ratio: 16/9; object-fit: cover; }
+        .label { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #aaa; }
+        .controls { display: flex; gap: 20px; align-items: center; background: #1e1e1e; padding: 15px 30px; border-radius: 12px; width: 100%; max-width: 800px; border: 1px solid #333; }
+        button { background: #0066cc; color: white; border: none; padding: 10px 24px; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        button:hover { background: #0052a3; }
+        input[type=range] { flex-grow: 1; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h1>AlphaVox Progression</h1>
+    
+    <div class="video-wrapper">
+        <div class="video-container">
+            <span class="label">Early Build</span>
+            <video id="vid1" src="early_build.mp4" playsinline></video>
+        </div>
+        <div class="video-container">
+            <span class="label">Current AlphaVox</span>
+            <video id="vid2" src="generated_agent_production.mp4" playsinline></video>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button id="playBtn">Play</button>
+        <input type="range" id="scrubber" value="0" min="0" step="0.01">
+    </div>
+
+    <script>
+        const vid1 = document.getElementById('vid1');
+        const vid2 = document.getElementById('vid2');
+        const btn = document.getElementById('playBtn');
+        const scrubber = document.getElementById('scrubber');
+        let isScrubbing = false;
+
+        btn.addEventListener('click', () => {
+            if (vid1.paused) {
+                vid1.play();
+                vid2.play();
+                btn.textContent = 'Pause';
+            } else {
+                vid1.pause();
+                vid2.pause();
+                btn.textContent = 'Play';
+            }
+        });
+
+        vid1.addEventListener('loadedmetadata', () => {
+            scrubber.max = vid1.duration;
+        });
+
+        vid1.addEventListener('timeupdate', () => {
+            if (!isScrubbing) {
+                scrubber.value = vid1.currentTime;
+            }
+        });
+
+        scrubber.addEventListener('mousedown', () => isScrubbing = true);
+        scrubber.addEventListener('mouseup', () => isScrubbing = false);
+        
+        scrubber.addEventListener('input', (e) => {
+            const time = parseFloat(e.target.value);
+            vid1.currentTime = time;
+            vid2.currentTime = time;
+        });
+    </script>
+</body>
+</html>
